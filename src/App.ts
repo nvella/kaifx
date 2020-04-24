@@ -1,5 +1,10 @@
-export default class App {
+import IRenderable from "./IRenderable";
+import { SoftkeyManager } from "./SoftkeyManager";
+
+export default class App implements IRenderable {
     private _root: HTMLElement;
+
+    private _softkeyMgr: SoftkeyManager;
 
     constructor(root?: HTMLElement) {
         if(root instanceof HTMLElement) {
@@ -7,6 +12,8 @@ export default class App {
         } else {
             this._root = document.body;
         }
+
+        this._softkeyMgr = new SoftkeyManager(this);
     }
 
     init() {
@@ -15,18 +22,19 @@ export default class App {
         //  Perform the initial render
 
         this._root.onkeydown = this.handleKeydown;
+
+        this.renderInsideRoot();
     }
 
-    render(): HTMLElement {
-        let el = new HTMLSpanElement();
-        el.innerHTML = 'hello world';
-        return el;
+    render(): HTMLElement[] {
+        return [
+            this._softkeyMgr.render()
+        ];
     }
 
-    private renderToRoot() {
-        let newRoot = this.render();
-        this._root.parentElement?.replaceChild(newRoot, this._root);
-        this._root = newRoot;
+    private renderInsideRoot() {
+        this._root.textContent = '';
+        for(var el of this.render()) this._root.appendChild(el); // there is probably a smarter way to do this
     }
 
     private handleKeydown = (ev: KeyboardEvent) => {
