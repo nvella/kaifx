@@ -1,0 +1,59 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 8px;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+h5 {
+    font-size: 14px;
+}
+
+.kaifx-softkeys {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #ccc;
+    font-size: 12px;
+
+    line-height: 22px;
+    min-height: 22px;
+    text-overflow: clip;
+}
+
+.kaifx-softkeys > div {
+    margin-top: auto;
+    margin-bottom: auto;
+    box-sizing: border-box;
+}
+
+.kaifx-softkeys > .left {
+    display: inline-block;
+    width:33%;
+    text-align: left;
+
+    padding-left: 5px;
+}
+
+.kaifx-softkeys > .centre {
+    display: inline-block;
+    width: 33%;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.kaifx-softkeys > .right {
+    display: inline-block;
+    width: 33%;
+    text-align: right;
+
+    padding-right: 5px;
+}
