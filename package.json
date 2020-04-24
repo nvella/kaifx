@@ -1,0 +1,25 @@
+{
+  "name": "kaifx",
+  "version": "0.0.1",
+  "description": "Lightweight UI framework for KaiOS",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nvella/kaifx.git"
+  },
+  "author": "Nick Vella <nick@nxk.io>",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/nvella/kaifx/issues"
+  },
+  "homepage": "https://github.com/nvella/kaifx#readme",
+  "devDependencies": {
+    "typescript": "^3.8.3"
+  },
+  "files": [
+    "dist/**/*"
+  ]
+}
