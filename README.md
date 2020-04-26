@@ -8,35 +8,35 @@ A lightweight, object-oriented user interface framework for developing KaiOS app
 
 ### App class
 
-Manages application lifecycle, Screens, input/output, and softkeys
+Manages application lifecycle, Pages, input/output, and softkeys
 
 | Method | Description |
 | ------ | ----------- |
 | `init` | Initialises the application, hooks document events. |
-| `setScreen` | Clears the screen stack and replaces it with the provided Screen |
-| `pushScreen` | Push a Screen onto the stack |
-| `replaceScreen` | Replaces the Screen on the top of the stack |
-| `popScreen` | Pop a Screen off the stack |
+| `setPage` | Clears the screen stack and replaces it with the provided Page |
+| `pushPage` | Push a Page onto the stack |
+| `replacePage` | Replaces the Page on the top of the stack |
+| `popPage` | Pop a Page off the stack |
 
-### Screen abstract class
+### Page abstract class
 
-Inherited by other concrete Screen classes.
+Inherited by other concrete Page classes.
 
 | Method | Description |
 | ------ | ----------- |
 | `setSoftkeys` | Set the left, centre and right softkeys for this screen. Each softkey can either be an ICommand or an ICommandMenu |
 
-### ListScreen class
+### ListPage class
 
 Stacks elements vertically, allowing selection between them.
 
-### LoaderScreen class
+### LoaderPage class
 
 Displays a loading indicator
 
-### TabScreen class
+### TabPage class
 
-Presents a tab bar for switching between provided sub-Screens.
+Presents a tab bar for switching between provided sub-Pages.
 
 ### ICommand interface
 
