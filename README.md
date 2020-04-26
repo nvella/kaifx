@@ -26,7 +26,7 @@ Inherited by other concrete Screen classes.
 | ------ | ----------- |
 | `setSoftkeys` | Set the left, centre and right softkeys for this screen. Each softkey can either be an ICommand or an ICommandMenu |
 
-### StackScreen class
+### ListScreen class
 
 Stacks elements vertically, allowing selection between them.
 

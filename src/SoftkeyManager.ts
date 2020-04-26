@@ -1,28 +1,32 @@
-import IRenderable from "./IRenderable";
 import App from "./App";
+import Renderable from "./Renderable";
 
-const renderSoftkey = (text: string, cssClass: string) => {
-    let span = document.createElement('span');
-    span.innerText = text;
-    span.className = cssClass;
-    return span;
-};
-
-export class SoftkeyManager implements IRenderable {
+export class SoftkeyManager extends Renderable {
     private _app: App;
+    private _dirty: boolean = true;
 
     constructor(app: App) {
+        super();
         this._app = app;
     }
 
-    render(): HTMLElement {
-        let root = document.createElement('div');
-        root.className = 'kaifx-softkeys';
+    needsRender = () => this._dirty;
 
-        root.appendChild(renderSoftkey('Left Key', 'left'));
-        root.appendChild(renderSoftkey('Select', 'centre'));
-        root.appendChild(renderSoftkey('Right Key', 'right'));
+    init(parent: HTMLElement) {
+        this._root = document.createElement('div');
+        this._root.className = 'kaifx-softkeys';
+        parent.appendChild(this._root);
+    }
 
-        return root;
+    render() {
+        super.render();
+
+        this._root.innerHTML = `
+        <span class="left">Left Key</span>
+        <span class="centre">Centre Key</span>
+        <span class="right">Right Key</span>
+        `;
+
+        this._dirty = false;
     }
 }
