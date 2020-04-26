@@ -17,11 +17,15 @@
   },
   "homepage": "https://github.com/nvella/kaifx#readme",
   "devDependencies": {
+    "@types/lodash": "^4.14.150",
     "typescript": "^3.8.3"
   },
   "files": [
     "dist/**/*",
     "kaifx.css"
   ],
-  "main": "dist/lib/index.js"
+  "main": "dist/lib/index.js",
+  "dependencies": {
+    "lodash": "^4.17.15"
+  }
 }
