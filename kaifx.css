@@ -1,21 +1,26 @@
 .kaifx-app-root {
     font-family: 'Open Sans', sans-serif;
-    font-size: 8px;
+    font-size: 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
 }
 
-body {
-    margin: 0;
+.kaifx-page-header {
+    width: 100%;
+    font-size: 12px;
+    line-height: 22px;
+    min-height: 22px;
+    text-align: center;
+    background-color: #333;
+    color: white;
 }
 
-h5 {
-    font-size: 14px;
-}
-
-.kaifx-content {
+.kaifx-page-content {
     flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    
 }
 
 .kaifx-softkeys {
