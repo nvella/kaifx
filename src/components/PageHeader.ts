@@ -14,11 +14,13 @@ export default class PageHeader extends Renderable {
         this._root = document.createElement('div');
         this._root.className = 'kaifx-page-header';
         parent.appendChild(this._root);
+
+        this.render();
     }
 
     needsRender = () => this._dirty;
 
-    render(force: boolean = false) {
+    private render(force: boolean = false) {
         if(!force && !this._dirty) return;
 
         this._root.innerText = this._text;
