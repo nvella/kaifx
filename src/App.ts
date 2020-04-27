@@ -11,7 +11,7 @@ export interface IAppOptions {
     hookDocumentKeydown: boolean;
 }
 
-export default class App extends Renderable implements IReceivesInput {
+export default class App extends Renderable {
     private _options: IAppOptions;
     private _softkeyMgr: SoftkeyManager;
 
@@ -42,7 +42,7 @@ export default class App extends Renderable implements IReceivesInput {
 
         // Set the keydown handler
         if(this._options.hookDocumentKeydown) 
-            document.onkeydown = (ev: KeyboardEvent) => this.handleKeydown(ev.key);
+            document.onkeydown = this.handleKeydownEvent;
 
         // Add a render root to the container
         // Style it appropiately
@@ -62,14 +62,6 @@ export default class App extends Renderable implements IReceivesInput {
         this._softkeyMgr.init(this._root);
     }
 
-    render() {
-        // Render the title
-        this._pageHeader.render();
-
-        // Render the softkey manager
-        this._softkeyMgr.render();
-    }
-
     setOnlyPage(page: Page) {
         if(!this._pageContent) throw 'cannot set page without page content (did you forget to call App#init()?)';
 
@@ -81,12 +73,28 @@ export default class App extends Renderable implements IReceivesInput {
         this._stack.push(page);
 
         if(page.needsInit()) page.init(this._pageContent);
-        page.render();
         page.handlePageEnter();
     }
 
     pushPage(page: Page) {
+        if(!this._pageContent) throw 'cannot set page without page content (did you forget to call App#init()?)';
         
+        if(this.activePage) this.activePage.handlePageLeave();
+        
+        this._stack.push(page);
+        if(page.needsInit()) page.init(this._pageContent);
+        page.handlePageEnter();
+    }
+
+    popPage() {
+        if(this._stack.length < 2 || !this.activePage) return;
+    
+        let page = this.activePage;
+        this.activePage.handlePageLeave();
+        this._stack.pop();
+        page.dispose();
+
+        this.activePage.handlePageEnter();
     }
     
     handleAppPageStateUpdate = (page: Page, pageState: IPageState) => {
@@ -95,20 +103,30 @@ export default class App extends Renderable implements IReceivesInput {
         if(typeof(pageState.pageTitle) === 'string') {
             this._pageHeader.setText(pageState.pageTitle);
         }
+
+        if(typeof(pageState.softkeys) === 'object')
+            this._softkeyMgr.setSoftkeys(pageState.softkeys);
     }
     
-    handleKeydown = (key: string) => {
-        switch(key) {
+    handleKeydownEvent = (ev: KeyboardEvent) => {
+        switch(ev.key) {
+            case 'ArrowRight':
+                let newPage = new Page(this, `Page ${this._stack.length + 1}`);
+                this.pushPage(newPage);
+                break;
+            case 'Backspace':
+                if(this._stack.length > 2) {
+                    this.popPage();
+                    ev.preventDefault();
+                }
+
+                break;
             default:
-                console.log(`keypress: ${key}`);
+                console.log(`keypress: ${ev.key}`);
+                if(this.activePage) {
+                    console.log('  passing to page');
+                    this.activePage.handleKeydown(ev.key);
+                }
         }
     };
-
-    tmpDoDemo() {
-        this.init(document.body);
-        this.render();
-        
-        let page = new Page(this, 'Hello KaiFX!');
-        this.setOnlyPage(page);
-    }
 }
