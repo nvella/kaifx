@@ -2,14 +2,19 @@ import App from "./App";
 import Renderable from "./Renderable";
 
 export interface ISoftkeyDefinitions {
-    left?: string | null;
-    centre?: string | null;
-    right?: string | null;
+    left: string | null;
+    centre: string | null;
+    right: string | null;
 }
 
 export class SoftkeyManager extends Renderable {
     private _app: App;
-    private _dirty: boolean = true;
+    
+    private _softkeys: ISoftkeyDefinitions = {
+        left: null,
+        centre: null,
+        right: null
+    }
 
     constructor(app: App) {
         super();
@@ -20,17 +25,21 @@ export class SoftkeyManager extends Renderable {
         this._root = document.createElement('div');
         this._root.className = 'kaifx-softkeys';
         parent.appendChild(this._root);
+
+        this.render();
     }
 
-    render(force: boolean = false) {
-        if(!force && !this._dirty) return;
+    setSoftkeys(softkeys: ISoftkeyDefinitions)
+    {
+        this._softkeys = softkeys;
+        this.render();
+    }
 
+    private render() {
         this._root.innerHTML = `
-        <span class="left">Left Key</span>
-        <span class="centre">Centre Key</span>
-        <span class="right">Right Key</span>
+        <span class="left">${this._softkeys.left ?? ''}</span>
+        <span class="centre">${this._softkeys.centre ?? ''}</span>
+        <span class="right">${this._softkeys.right ?? ''}</span>
         `;
-
-        this._dirty = false;
     }
 }
