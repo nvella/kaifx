@@ -67,7 +67,7 @@ export default class App extends Renderable {
 
         // Handle leave of current page and destory all existing pages
         if(this.activePage) this.activePage.handlePageLeave();
-        for(var page of this._stack) page.dispose();
+        for(var page of this._stack) page.deinit();
         this._stack = [];
 
         this._stack.push(page);
@@ -92,7 +92,7 @@ export default class App extends Renderable {
         let page = this.activePage;
         this.activePage.handlePageLeave();
         this._stack.pop();
-        page.dispose();
+        page.deinit();
 
         this.activePage.handlePageEnter();
     }

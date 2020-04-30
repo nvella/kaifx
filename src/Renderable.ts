@@ -11,7 +11,8 @@ export default abstract class Renderable {
     }
 
     abstract init(parent: HTMLElement): void;
-    dispose(): void { }
+    
+    deinit(): void { }
     
     needsInit(): boolean {
         return !this._unsureRoot;

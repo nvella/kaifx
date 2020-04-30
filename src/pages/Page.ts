@@ -54,7 +54,7 @@ export default class Page extends Renderable implements IReceivesInput {
         this.render();
     }
 
-    dispose() {
+    deinit() {
         this._root.remove();
     }
 
