@@ -11,7 +11,7 @@ export interface IPageState {
 
 export type AppUpdatePageStateCallback = (origin: Page, state: IPageState) => void;
 
-export default class Page extends Renderable implements IReceivesInput {
+export default abstract class Page extends Renderable implements IReceivesInput {
     protected _app: App;    
     protected _updatePageStateCb: AppUpdatePageStateCallback;
 
@@ -50,8 +50,6 @@ export default class Page extends Renderable implements IReceivesInput {
         this._root.className = 'kaifx-page';
         this._root.hidden = !this.isPageActive();
         parent.appendChild(this._root);
-
-        this.render();
     }
 
     deinit() {
@@ -67,10 +65,6 @@ export default class Page extends Renderable implements IReceivesInput {
     protected setSoftkeys(softkeys: ISoftkeyDefinitions) {
         this._softkeys = softkeys;
         this.updatePageState();
-    }
-
-    private render(force: boolean = false): void {
-        this._root.innerText = `${this._title}`;
     }
 
     private updatePageState() {

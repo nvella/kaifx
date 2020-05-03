@@ -54,3 +54,27 @@
     text-align: right;
     
 }
+
+.kaifx-listitem {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.kaifx-listitem > h1 {
+    margin: 0;
+    font-weight: normal;
+    font-size: 14pt;
+}
+
+.kaifx-listitem > h2 {
+    margin: 0;
+    font-weight: normal;
+    font-size: 10pt;
+}
+
+.kaifx-listitem.selected {
+    background-color: lightblue;
+}
+

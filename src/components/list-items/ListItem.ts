@@ -1,31 +1,45 @@
+import BaseListItem from "./BaseListItem";
 import Renderable from "../../Renderable";
 
-export default abstract class ListItem extends Renderable {
-    private _selected: boolean = false;
+export default class ListItem extends BaseListItem {
+    private _title: string;
+    private _subtitle: string | null;
 
-    public get selected(): boolean { return this.selected; }
-    public set selected(val: boolean) {
-        if(val === this._selected) return;
-        this._selected = val;
+    private _titleDiv?: HTMLElement;
+    private _subtitleDiv?: HTMLElement;
+
+    constructor(title: string, subtitle?: string) {
+        super();
+        
+        this._title = title;
+        this._subtitle = subtitle ?? null;
+    }
+
+    init(parent: HTMLElement) {
+        super.init(parent);
+
+        this._titleDiv = document.createElement('h1');
+        this._root.appendChild(this._titleDiv);
+        
+        this._subtitleDiv = document.createElement('h2');
+        this._root.appendChild(this._subtitleDiv);
+
         this.render();
     }
+    
+    render() {
+        super.render();
+        
+        if(!this._titleDiv || !this._subtitleDiv) return;
 
-    init(parent: HTMLElement): void {
-        this._root = document.createElement('div');
-        this._root.className = 'kaifx-listitem';
-        parent.appendChild(this._root);
+        this._titleDiv.innerText = this._title;
+        if(this._subtitle) {
+            this._subtitleDiv.hidden = false;
+            this._subtitleDiv.innerText = this._subtitle;
+        } else {
+            this._subtitleDiv.hidden = true;
+        }
     }
 
-    deinit() {
-        this._root.remove();
-    }
-
-    abstract onSelect(): void;
-
-    private render() {
-        // Set CSS class
-        let cssClass = 'kaifx-listitem';
-        if(this._selected) cssClass += ' selected';
-        this._root.className = cssClass;
-    }
+    onClick = () => {};
 }

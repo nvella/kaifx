@@ -110,12 +110,8 @@ export default class App extends Renderable {
     
     handleKeydownEvent = (ev: KeyboardEvent) => {
         switch(ev.key) {
-            case 'ArrowRight':
-                let newPage = new Page(this, `Page ${this._stack.length + 1}`);
-                this.pushPage(newPage);
-                break;
             case 'Backspace':
-                if(this._stack.length > 2) {
+                if(this._stack.length > 1) {
                     this.popPage();
                     ev.preventDefault();
                 }
