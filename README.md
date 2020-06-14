@@ -1,6 +1,6 @@
 # kaifx
 
-**Work in progress**
+**Currently paused due to myself no longer using a KaiOS phone. I might be back :)**
 
 A lightweight, object-oriented user interface framework for developing KaiOS applications, with no dependence on typical desktop/mobile web frameworks like React or Angular. Aims to keep things simple, understandable, and self-documenting. Attempts to focus on abstracting away the idiosyncrasies of the mobile web so you can focus on your app.
 
